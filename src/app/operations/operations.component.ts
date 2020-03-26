@@ -22,8 +22,8 @@ export class OperationsComponent implements OnInit {
   skey: any;
   searchlist: any;
   editdoc: any;
-  noSearchData:any;
-  meta:any;
+  noSearchData: any;
+  meta: any;
   constructor(private api: ApiService) { }
 
   ngOnInit() {
@@ -35,8 +35,8 @@ export class OperationsComponent implements OnInit {
     this.searchRoom = false;
     this.searchlist = false;
     this.editdoc = false;
-    this.noSearchData=false;
-    this.meta=0;
+    this.noSearchData = false;
+    this.meta = 0;
     //console.log(this.listdata);
 
   }
@@ -79,7 +79,7 @@ export class OperationsComponent implements OnInit {
       (response) => {
         if (response.status == true) {
           console.log(response);
-          this.meta=response.meta;
+          this.meta = response.meta;
 
           this.listdata = response.doc;
         }
@@ -94,7 +94,7 @@ export class OperationsComponent implements OnInit {
       (response) => {
         if (response.status == true) {
           console.log(response);
-          this.meta=response.meta;
+          this.meta = response.meta;
           this.listdata = response.doc;
         }
         else {
@@ -108,7 +108,7 @@ export class OperationsComponent implements OnInit {
       (response) => {
         if (response.status == true) {
           console.log(response);
-          this.meta=response.meta;
+          this.meta = response.meta;
           this.listdata = response.doc;
         }
         else {
@@ -129,24 +129,30 @@ export class OperationsComponent implements OnInit {
   }
   edit() {
     this.editdoc = false;
-    const myobj = {
-      _id: this.editId,
-      device: this.appName,
-      room: this.appRoom,
-      watt: this.watt
+    if (this.appName == "" && this.appRoom == "") {
+      alert("Device and Room name is required!")
     }
-    this.api.edit(myobj).subscribe(
-      (response) => {
-        if (response.status == true) {
-          this.editdoc = true;
-          this.get();
-        }
-        else {
-          alert(response.message);
-        }
+    else {
 
+      const myobj = {
+        _id: this.editId,
+        device: this.appName,
+        room: this.appRoom,
+        watt: this.watt
       }
-    );
+      this.api.edit(myobj).subscribe(
+        (response) => {
+          if (response.status == true) {
+            this.editdoc = true;
+            this.get();
+          }
+          else {
+            alert(response.message);
+          }
+
+        }
+      );
+    }
   }
 
   update(id, e, page) {
@@ -211,18 +217,18 @@ export class OperationsComponent implements OnInit {
 
     this.api.search(this.skey, param).subscribe(
       (response) => {
-        this.meta=response.meta;
+        this.meta = response.meta;
         console.log(response);
-        
+
         if (response.status == true) {
-          if(response.doc.length==0)
-          {
-            this.noSearchData=true;
+          if (response.doc.length == 0) {
+            this.noSearchData = true;
+            this.listdata=[];
           }
-          else{
-            this.noSearchData=false;
-          this.searchlist = true;
-          this.listdata = response.doc;
+          else {
+            this.noSearchData = false;
+            this.searchlist = true;
+            this.listdata = response.doc;
           }
         }
         else {

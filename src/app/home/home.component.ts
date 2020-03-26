@@ -38,6 +38,12 @@ export class HomeComponent implements OnInit {
   save() {
     console.log(this.appName);
     console.log(this.appRoom);
+
+    if(this.appName=="" && this.appRoom == "")
+    {
+      alert("Device and Room name is required!")
+    }
+    else{
     this.api.add(this.appName, this.appRoom,this.watt).subscribe(
       (response) => {
         if (response) {
@@ -52,7 +58,8 @@ export class HomeComponent implements OnInit {
           }
         }
       }
-    )
+    );
+    }
 
   }
 
