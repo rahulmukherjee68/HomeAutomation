@@ -15,7 +15,7 @@
     </div>
 </div>
 
-
+<h1></h1>
 <!-- list pannel  -->
 
 <div class="container" *ngIf="listtab==true">
@@ -59,7 +59,7 @@
                 <!--Basic textarea-->
                 <div class="md-form">
                     <input name="app-name" type="text" id="app-name" class="md-textarea form-control" rows="1"
-                        [(ngModel)]="appName">
+                        [(ngModel)]="device" (ngModelChange)="saveChange()">
 
                 </div>
 
@@ -70,7 +70,7 @@
                 <!--Basic textarea-->
                 <div class="md-form">
                     <input type="text" name="app-room" id="app-room" class="md-textarea form-control" rows="1"
-                        [(ngModel)]="appRoom">
+                        [(ngModel)]="room" (ngModelChange)="saveChange()">
 
                 </div>
 
@@ -80,7 +80,7 @@
                 <!--Basic textarea-->
                 <div class="md-form">
                     <input type="number" name="app-room" id="app-room" class="md-textarea form-control" rows="1"
-                        [(ngModel)]="watt">
+                        [(ngModel)]="wattHome" (ngModelChange)="saveChange()">
 
                 </div>
 
@@ -98,7 +98,7 @@
             </div>
 
             <p class="text-center" *ngIf="saveDoc==true">
-                <strong>Data saved </strong>
+                <strong>Device saved </strong>
             </p>
         </div>
     </div>

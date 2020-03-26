@@ -19,6 +19,9 @@ export class HomeComponent implements OnInit {
   list:any;
   watt:any;
   meta:any;
+  device:any;
+  room:any;
+  wattHome:any;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -28,6 +31,9 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.appName = "";
     this.appRoom = "";
+    this.device="";
+    this.wattHome="";
+    this.room="";
     this.watt=0;
     this.saveDoc = false;
     this.listtab=false;
@@ -36,21 +42,24 @@ export class HomeComponent implements OnInit {
   }
 
   save() {
-    console.log(this.appName);
-    console.log(this.appRoom);
+    // console.log(this.appName);
+    // console.log(this.appRoom);
 
-    if(this.appName=="" && this.appRoom == "")
+    if(this.device=="" && this.room == "")
     {
       alert("Device and Room name is required!")
     }
     else{
-    this.api.add(this.appName, this.appRoom,this.watt).subscribe(
+    this.api.add(this.device, this.room,this.wattHome).subscribe(
       (response) => {
         if (response) {
           console.log(response);
           if(response.status==true){
           this.addDoc = response;
           this.saveDoc = true;
+          this.device="";
+          this.room="";
+          this.wattHome="";
           }
           else
           {
@@ -95,6 +104,11 @@ export class HomeComponent implements OnInit {
     this.operationtab=true;
     this.listtab=false;
 
+  }
+  saveChange()
+  {
+    this.saveDoc=false;
+    
   }
 
 }

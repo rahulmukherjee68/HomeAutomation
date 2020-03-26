@@ -124,6 +124,7 @@ export class OperationsComponent implements OnInit {
     this.appName = device;
     this.watt = watt;
     this.searchlist = false;
+    this.editdoc=false;
     console.log(this.editId);
 
   }
@@ -144,6 +145,9 @@ export class OperationsComponent implements OnInit {
         (response) => {
           if (response.status == true) {
             this.editdoc = true;
+            this.appRoom="";
+            this.appName="";
+            this.watt="";
             this.get();
           }
           else {
@@ -239,6 +243,9 @@ export class OperationsComponent implements OnInit {
     );
 
 
+  }
+  editChange(){
+    this.editdoc=false;
   }
 
 

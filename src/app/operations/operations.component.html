@@ -12,7 +12,7 @@
         </div>
         <div class="panel-body">
             <!-- all active devices -->
-            <div class="row-search-list" *ngIf="active==true">
+            <div class="row" *ngIf="active==true">
 
                 <div class="card" style="width: 25rem;" *ngFor="let data of listdata |keyvalue">
 
@@ -45,7 +45,7 @@
             <!-- end of all active devices -->
 
             <!-- all unactive devices -->
-            <div class="row-search-list" *ngIf="unactive==true">
+            <div class="row" *ngIf="unactive==true">
 
                 <div class="card" style="width: 25rem;" *ngFor="let data of listdata |keyvalue">
 
@@ -105,7 +105,7 @@
                     </form>
                 </div>
                 <div class="row-search-list" *ngIf="noSearchData==true"> <p>No Data Found!</p></div>
-                <div class="row-search-list" *ngIf="searchlist==true">
+                <div class="row" *ngIf="searchlist==true">
 
                     <div class="card" style="width: 25rem;" *ngFor="let data of listdata |keyvalue">
 
@@ -171,7 +171,7 @@
                 </p>
                 <!--Basic textarea-->
                 <div class="md-form">
-                    <input name="app-name" type="text" id="app-name" rows="1" [(ngModel)]="appName">
+                    <input name="app-name" type="text" id="app-name" rows="1" [(ngModel)]="appName" (ngModelChange)="editChange()">
 
                 </div>
 
@@ -181,7 +181,7 @@
                 </p>
                 <!--Basic textarea-->
                 <div class="md-form">
-                    <input type="text" name="app-room" id="app-room" rows="1" [(ngModel)]="appRoom">
+                    <input type="text" name="app-room" id="app-room" rows="1" [(ngModel)]="appRoom" (ngModelChange)="editChange()">
 
                 </div>
 
@@ -191,7 +191,7 @@
                 </p>
                 <!--Basic textarea-->
                 <div class="md-form">
-                    <input type="number" name="watt" id="watt" rows="1" [(ngModel)]="watt">
+                    <input type="number" name="watt" id="watt" rows="1" [(ngModel)]="watt" (ngModelChange)="editChange()">
 
                 </div>
 
@@ -205,7 +205,7 @@
             </div>
 
             <p class="text-center" *ngIf="editdoc==true">
-                <strong>Data updated </strong>
+                <strong>Device {{appName}} updated </strong>
             </p>
         </div>
     </div>
