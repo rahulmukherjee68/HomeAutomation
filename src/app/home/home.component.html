@@ -1,0 +1,106 @@
+<!-- Flex Container -->
+<div id="container">
+
+    <div class="button" id="button-2">
+        <div id="slide"></div>
+        <a  data-toggle="modal" (click)="addclick()" data-target="#modalPoll-1">Add Devices</a>
+    </div>
+    <div class="button" id="button-2">
+        <div id="slide"></div>
+        <a (click)="selectlist()">My Devices</a>
+    </div>
+    <div class="button" id="button-2">
+        <div id="slide"></div>
+        <a  (click)="selectoperations()">Operations</a>
+    </div>
+</div>
+
+
+<!-- list pannel  -->
+
+<div class="container" *ngIf="listtab==true">
+    <app-list [list]="list"></app-list>
+</div>
+
+<!-- end of list panned -->
+
+<!-- operations pannel  -->
+
+<div class="container" *ngIf="operationtab==true">
+    <app-operations [list]="list"></app-operations>
+</div>
+
+<!-- end of list panned -->
+
+
+
+<!-- Modal: modalPoll -->
+<div class="modal fade right" id="modalPoll-1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true" data-backdrop="false">
+    <div class="modal-dialog modal-full-height modal-right modal-notify modal-info" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <p class="heading lead">Add New Device
+                </p>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="white-text">×</span>
+                </button>
+            </div>
+
+            <!--Body-->
+            <div class="modal-body">
+
+
+                <p class="text-left">
+                    <strong>Smart Device Name:-</strong>
+                </p>
+                <!--Basic textarea-->
+                <div class="md-form">
+                    <input name="app-name" type="text" id="app-name" class="md-textarea form-control" rows="1"
+                        [(ngModel)]="appName">
+
+                </div>
+
+
+                <p class="text-left">
+                    <strong>Room Name:-</strong>
+                </p>
+                <!--Basic textarea-->
+                <div class="md-form">
+                    <input type="text" name="app-room" id="app-room" class="md-textarea form-control" rows="1"
+                        [(ngModel)]="appRoom">
+
+                </div>
+
+                <p class="text-left">
+                    <strong>Power Consumption( in Watt):-</strong>
+                </p>
+                <!--Basic textarea-->
+                <div class="md-form">
+                    <input type="number" name="app-room" id="app-room" class="md-textarea form-control" rows="1"
+                        [(ngModel)]="watt">
+
+                </div>
+
+
+
+
+            </div>
+
+            <!--Footer-->
+            <div class="modal-footer justify-content-center">
+                <a type="button" class="btn btn-primary waves-effect waves-light" (click)="save()">Save
+                    <i class="fa fa-paper-plane ml-1"></i>
+                </a>
+                <a type="button" class="btn btn-outline-primary waves-effect" data-dismiss="modal">Cancel</a>
+            </div>
+
+            <p class="text-center" *ngIf="saveDoc==true">
+                <strong>Data saved </strong>
+            </p>
+        </div>
+    </div>
+</div>
+<!-- Modal: modalPoll -->

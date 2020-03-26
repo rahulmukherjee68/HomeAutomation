@@ -1,0 +1,212 @@
+<div clas="container-fluid">
+    <p class="p-text"> Total Devices Found:- {{meta}}</p>
+</div>
+<div class="panel-group">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <ul class="nav nav-tabs">
+                <li><a (click)="selectActive()">All Active Devices</a></li>
+                <li><a (click)="selectUnActive()">All Un-Active Devices</a></li>
+                <li><a (click)="selectSearch()">Search My Device</a></li>
+            </ul>
+        </div>
+        <div class="panel-body">
+            <!-- all active devices -->
+            <div class="row-search-list" *ngIf="active==true">
+
+                <div class="card" style="width: 20rem;" *ngFor="let data of listdata |keyvalue">
+
+                    <div class="card-body">
+                        <h5 class="card-title"><b>Device Name:-</b><b>{{data.value.device}}</b></h5>
+                        <h6 class="card-text"> <b>Room</b> :- {{data.value.room}}</h6>
+                        <h6 class="card-text"><b> Default Power Required</b> :- {{data.value.watt}} &nbsp; W </h6>
+
+                        <h6 class="card-text"> <b>Last Switched on</b> :- {{data.value.lastPowerOn}}</h6>
+                        <h6 class="card-text"> <b>Total Power Consumed</b> :- {{data.value.powerConsumption}}</h6>
+                        <h6 class="card-text"><b>Switch </b> :- &nbsp;
+                        <label class="switch" *ngIf="data.value.status==1">
+                            <input type="checkbox" id="checkbox" (change)="update(data.value._id,$event,'active')" checked>
+                            <span class="slider round"></span>
+                        </label>
+                        <label class="switch" *ngIf="data.value.status==0">
+                            <input type="checkbox" id="checkbox" (change)="update(data.value._id,$event,'active')">
+                            <span class="slider round"></span>
+                        </label>
+                        </h6>
+                        <div class="row-edit">
+                            <button type="button" class="btn btn-warning"
+                                (click)="deleteById(data.value._id)">delete</button>&nbsp;
+                            <button type="button" class="btn btn-info" (click)="editById(data.value._id,data.value.room,data.value.device,data.value.watt)" data-toggle="modal"
+                                data-target="#exampleModal">edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end of all active devices -->
+
+            <!-- all unactive devices -->
+            <div class="row-search-list" *ngIf="unactive==true">
+
+                <div class="card" style="width: 25rem;" *ngFor="let data of listdata |keyvalue">
+
+                    <div class="card-body">
+                        <h5 class="card-title"><b>Device Name:-</b><b>{{data.value.device}}</b></h5>
+                        <h6 class="card-text"> <b>Room</b> :- {{data.value.room}}</h6>
+                        <h6 class="card-text"><b> Default Power Required</b> :- {{data.value.watt}} &nbsp; W </h6>
+
+                        <h6 class="card-text"> <b>Last Switched on</b> :- {{data.value.lastPowerOn}}</h6>
+                        <h6 class="card-text"> <b>Total Power Consumed</b> :- {{data.value.powerConsumption}}</h6>
+                        <h6 class="card-text"><b>Switch </b> :- &nbsp;
+                            <label class="switch" *ngIf="data.value.status==1">
+                                <input type="checkbox" id="checkbox" (change)="update(data.value._id,$event,'unactive')" checked>
+                                <span class="slider round"></span>
+                            </label>
+                            <label class="switch" *ngIf="data.value.status==0">
+                                <input type="checkbox" id="checkbox" (change)="update(data.value._id,$event,'unactive')">
+                                <span class="slider round"></span>
+                            </label>
+                        </h6>
+
+                        <div class="row-edit">
+                            <button type="button" class="btn btn-warning"
+                                (click)="deleteById(data.value._id)">delete</button> &nbsp;&nbsp;&nbsp;
+                            <button type="button" class="btn btn-info"
+                                (click)="editById(data.value._id,data.value.room,data.value.device,data.value.watt)" data-toggle="modal"
+                                data-target="#exampleModal">edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end of all unactive devices pannel -->
+
+            <!-- search starts -->
+
+
+            <div class="row" *ngIf="search==true">
+
+                <button type="button" class="btn btn-warning" (click)="selectsearchRoom()">Search By
+                    Room</button> <br>&nbsp; &nbsp; &nbsp;
+                <button type="button" class="btn btn-warning" (click)="selectsearchDevice()">Search By
+                    Device</button>
+                <div class="container" style="align-items: left;" *ngIf="searchRoom==true">
+                    <form class="form-search" (submit)="searchByKey('room')">
+                        <input class="input-search" type="search" name="search" placeholder="Search By Room"
+                            [(ngModel)]="skey">
+                        <i class="fa fa-search" (click)="searchByKey('room')"></i>
+                    </form>
+
+                </div>
+                <div class="container" style="align-items: left;" *ngIf="searchDevice==true">
+
+                    <form class="form-search" (submit)="searchByKey('device')">
+                        <input class="input-search" type="search" name="search" placeholder="Search By Device"
+                            [(ngModel)]="skey">
+                        <i class="fa fa-search" (click)="searchByKey('device')"></i>
+                    </form>
+                </div>
+                <div class="row-search-list" *ngIf="noSearchData==true"> <p>No Data Found!</p></div>
+                <div class="row-search-list" *ngIf="searchlist==true">
+
+                    <div class="card" style="width: 25rem;" *ngFor="let data of listdata |keyvalue">
+
+                        <div class="card-body">
+                            <h5 class="card-title"><b>Device Name:-</b><b>{{data.value.device}}</b></h5>
+                            <h6 class="card-text"> <b>Room</b> :- {{data.value.room}}</h6>
+                            <h6 class="card-text"><b> Default Power Required</b> :- {{data.value.watt}} &nbsp; W </h6>
+    
+                            <h6 class="card-text"> <b>Last Switched on</b> :- {{data.value.lastPowerOn}}</h6>
+                            <h6 class="card-text"> <b>Total Power Consumed</b> :- {{data.value.powerConsumption}}</h6>
+                            <h6 class="card-text"><b>Switch </b> :- &nbsp;
+                            <label class="switch" *ngIf="data.value.status==1">
+                                <input type="checkbox" id="checkbox" (change)="update(data.value._id,$event,'search')" checked>
+                                <span class="slider round"></span>
+                            </label>
+                            <label class="switch" *ngIf="data.value.status==0">
+                                <input type="checkbox" id="checkbox" (change)="update(data.value._id,$event,'search')">
+                                <span class="slider round"></span>
+                            </label>
+                            </h6>
+                            <div class="row-edit">
+                                <button type="button" class="btn btn-warning"
+                                    (click)="deleteById(data.value._id)">delete</button>&nbsp;
+                                <button type="button" class="btn btn-info"
+                                    (click)="editById(data.value._id,data.value.room,data.value.device,data.value.watt)"
+                                    data-toggle="modal" data-target="#exampleModal">edit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!-- search ends -->
+
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">Edit Device</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <p class="text-left">
+                    <strong>Smart Device Name:-</strong>
+                </p>
+                <!--Basic textarea-->
+                <div class="md-form">
+                    <input name="app-name" type="text" id="app-name" rows="1" [(ngModel)]="appName">
+
+                </div>
+
+
+                <p class="text-left">
+                    <strong>Room Name:-</strong>
+                </p>
+                <!--Basic textarea-->
+                <div class="md-form">
+                    <input type="text" name="app-room" id="app-room" rows="1" [(ngModel)]="appRoom">
+
+                </div>
+
+
+                <p class="text-left">
+                    <strong>Power Consumption(in Watt):-</strong>
+                </p>
+                <!--Basic textarea-->
+                <div class="md-form">
+                    <input type="number" name="watt" id="watt" rows="1" [(ngModel)]="watt">
+
+                </div>
+
+            </div>
+            <!--Footer-->
+            <div class="modal-footer justify-content-center">
+                <a type="button" class="btn btn-primary waves-effect waves-light" (click)="edit()">Save
+
+                </a>
+                <a type="button" class="btn btn-outline-primary waves-effect" data-dismiss="modal">Cancel</a>
+            </div>
+
+            <p class="text-center" *ngIf="editdoc==true">
+                <strong>Data updated </strong>
+            </p>
+        </div>
+    </div>
+</div>

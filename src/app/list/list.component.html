@@ -1,0 +1,33 @@
+<ng-container >
+<div class="row">
+    <div clas="container-fluid">
+        <p class="p-text"> Total Devices Found:- {{meta}}</p>
+    </div>
+    <br>
+    <br>
+    <div class="card" style="width: 20rem;" *ngFor="let data of listdata |keyvalue">
+
+        <div class="card-body">
+            <h5 class="card-title"><b>Device Name:-</b><b>{{data.value.device}}</b></h5>
+            <h6 class="card-text"> <b>Room</b> :- {{data.value.room}}</h6>
+            <h6 class="card-text"><b> Default Power Required</b> :- {{data.value.watt}} &nbsp; W </h6>
+
+            <h6 class="card-text"> <b>Last Switched on</b> :- {{data.value.lastPowerOn}}</h6>
+            <h6 class="card-text"> <b>Total Power Consumed</b> :- {{data.value.powerConsumption}}</h6>
+            <h6 class="card-text"><b>Switch </b> :- &nbsp;  
+                <label class="switch" *ngIf="data.value.status==1">
+                    <input type="checkbox" id="checkbox" (change)="update(data.value._id,$event)" checked>
+                    <span class="slider round"></span>
+                </label>
+                <label class="switch" *ngIf="data.value.status==0">
+                    <input type="checkbox" id="checkbox" (change)="update(data.value._id,$event)">
+                    <span class="slider round"></span>
+                </label>
+            </h6>
+
+
+
+        </div>
+    </div>
+</div>
+</ng-container>
